@@ -1,0 +1,50 @@
+<div class="row">
+  <h1>{{ $ctrl.title }}: {{ $ctrl.customer.fullName }}</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <b>Address:</b>
+  </div>
+  <div class="col-md-4 end">
+    {{ $ctrl.address }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <b>Gets Discount:</b>
+  </div>
+  <div class="col-md-4 end">
+    {{ $ctrl.customer.getsDiscount ? 'Yes' : 'No' }}
+  </div>
+</div>
+<br />
+<discount
+  data-ng-if="$ctrl.customer.getsDiscount"
+  customer-discount="$ctrl.customer.discount"
+  update="$ctrl.updateDiscount(discount)"
+></discount>
+<div class="row" data-ng-if="$ctrl.orders.length > 0">
+  <div class="col-md-12">
+    <h3>Orders</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Order Date</th>
+          <th>Total Items</th>
+          <th>Total Sale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="order in $ctrl.orders">
+          <td>
+            <a data-ng-href="#/orders/{{ order.id }}">{{ order.id }}</a>
+          </td>
+          <td>{{ order.orderDate }}</td>
+          <td>{{ order.totalItems }}</td>
+          <td>{{ order.totalSale | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
